@@ -16,66 +16,66 @@
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
-    .accordion {
-      background-color: #f8f2fc;
-      color: #333;
-      cursor: pointer;
-      padding: 14px;
-      width: 100%;
-      text-align: left;
-      border: none;
-      outline: none;
-      transition: background-color 0.3s;
-      font-size: 16px;
-      margin-top: 10px;
-      border-radius: 6px;
-    }
-    .accordion:hover {
-      background-color: #ddd;
-    }
-    .panel {
-      padding: 0 18px;
-      display: none;
-      background-color: white;
-      overflow: hidden;
-      border-left: 2px solid #ccc;
-      margin-bottom: 10px;
-    }
+    
+    /* 表格樣式設定 */
     table {
       width: 100%;
       border-collapse: collapse;
       margin: 15px 0;
-      display: block;
-      overflow-x: auto; /* 允許橫向捲動 */
-      white-space: nowrap; /* 防止標題換行導致版面亂掉 */
+      table-layout: fixed; /* 這是關鍵：強制固定佈局 */
     }
+    
     th, td {
       border: 1px solid #ddd;
-      padding: 8px;
+      padding: 8px 4px; /* 稍微減少左右 padding 以容納更多內容 */
       text-align: center;
-      min-width: 100px;
+      vertical-align: middle;
+      width: 9%; /* 11個欄位，每個約 9% */
+      word-wrap: break-word; /* 文字太長自動換行 */
     }
+
     th { 
       background-color: #f9f9f9; 
+      font-size: 13px; /* 標題字稍微縮小一點以免塞不下 */
+      font-weight: bold;
+    }
+
+    /* 讓 Transcription 字體適應窄欄位 */
+    td:first-child {
       font-size: 14px;
+      line-height: 1.4;
     }
-    /* 讓 Transcription 欄位固定或稍微寬一點 */
-    td:first-child, th:first-child {
-      position: sticky;
-      left: 0;
-      background-color: #fff;
-      z-index: 1;
-      min-width: 150px;
-      box-shadow: 2px 0 5px -2px rgba(0,0,0,0.1);
+    
+    /* 讓播放器填滿該欄位 */
+    audio { 
+      width: 95%; 
+      height: 32px;
+      display: block;
+      margin: 0 auto;
     }
-    th:first-child {
-      background-color: #f9f9f9;
-    }
-    audio { width: 110px; } /* 因欄位眾多，縮小播放器 */
     
     /* 特定樣式 */
-    .bold-header { font-weight: bold; color: #000; }
-    .italic-text { font-style: italic; }
+    .bold-header { font-weight: bold; color: #000; background-color: #e8f0fe; } /*稍微把 Ours 標亮*/
+    
+    /* Reference 區域樣式 */
+    .references {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #ccc;
+      font-size: 14px;
+      color: #555;
+    }
+    .references h3 {
+      font-size: 18px;
+      color: #333;
+    }
+    .references ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .references li {
+      margin-bottom: 8px;
+    }
   </style>
 </head>
 <body>
@@ -91,25 +91,27 @@
 
   <p>
     We present speech repair results for dysarthric speakers.
-    The table below compares <b>Input</b>, <b>Input+<i>FAST</i></b>, <b>ASR+TTS</b>, Ablation studies (<b>w/o SPK</b>, <b>w/o <i>FAST</i></b>), <b>Our Proposed Full Model</b>, and Baselines (<b>DiffDSR</b>, <b>RnV</b>, <b>Liu et al.</b>).
+    The table below compares <b>Input</b>, <b>Input+<i>FAST</i></b>, <b>ASR+TTS</b>, Ablation studies, <b>Our Proposed Full Model</b>, and Baselines.
   </p>
 
   <h2>Speaker 07 (High intelligibility)</h2>
   <table>
-  <tr>
-    <th>Method</th>
-    <th>Input</th>
-    <th>Input+<i>FAST</i></th>
-    <th>ASR+TTS</th>
-    <th>Ours<br>(w/o SPK)</th>
-    <th>Ours<br>(w/o <i>FAST</i>)</th>
-    <th class="bold-header">Ours (Full)</th>
-    <th>Oracle TTS</th>
-    <th>DiffDSR</th>
-    <th>RnV</th>
-    <th>Liu et al.</th>
-  </tr>
-
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Input</th>
+      <th>Input+<i>FAST</i></th>
+      <th>ASR+TTS</th>
+      <th>Ours<br>(w/o SPK)</th>
+      <th>Ours<br>(w/o <i>FAST</i>)</th>
+      <th class="bold-header">Ours (Full)</th>
+      <th>Oracle TTS</th>
+      <th>DiffDSR<sup>[1]</sup></th>
+      <th>RnV<sup>[2]</sup></th>
+      <th>Liu et al.<sup>[3]</sup></th>
+    </tr>
+  </thead>
+  <tbody>
   <tr>
     <td>
       成功處置深航 <br>
@@ -160,24 +162,27 @@
     <td><audio controls src="./demo/07_sample3_Rnv.wav"></audio></td>
     <td><audio controls src="./demo/07_sample3_knn.wav"></audio></td>
   </tr>
+  </tbody>
   </table>
 
   <h2>Speaker 04 (Moderate intelligibility)</h2>
   <table>
-  <tr>
-    <th>Method</th>
-    <th>Input</th>
-    <th>Input+<i>FAST</i></th>
-    <th>ASR+TTS</th>
-    <th>Ours<br>(w/o SPK)</th>
-    <th>Ours<br>(w/o <i>FAST</i>)</th>
-    <th class="bold-header">Ours (Full)</th>
-    <th>Oracle TTS</th>
-    <th>DiffDSR</th>
-    <th>RnV</th>
-    <th>Liu et al.</th>
-  </tr>
-
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Input</th>
+      <th>Input+<i>FAST</i></th>
+      <th>ASR+TTS</th>
+      <th>Ours<br>(w/o SPK)</th>
+      <th>Ours<br>(w/o <i>FAST</i>)</th>
+      <th class="bold-header">Ours (Full)</th>
+      <th>Oracle TTS</th>
+      <th>DiffDSR<sup>[1]</sup></th>
+      <th>RnV<sup>[2]</sup></th>
+      <th>Liu et al.<sup>[3]</sup></th>
+    </tr>
+  </thead>
+  <tbody>
   <tr>
     <td>
       附加補貼 <br>
@@ -228,24 +233,27 @@
     <td><audio controls src="./demo/04_sample3_Rnv.wav"></audio></td>
     <td><audio controls src="./demo/04_sample3_knn.wav"></audio></td>
   </tr>
+  </tbody>
   </table>
 
   <h2>Speaker 26 (Low intelligibility)</h2>
   <table>
-  <tr>
-    <th>Method</th>
-    <th>Input</th>
-    <th>Input+<i>FAST</i></th>
-    <th>ASR+TTS</th>
-    <th>Ours<br>(w/o SPK)</th>
-    <th>Ours<br>(w/o <i>FAST</i>)</th>
-    <th class="bold-header">Ours (Full)</th>
-    <th>Oracle TTS</th>
-    <th>DiffDSR</th>
-    <th>RnV</th>
-    <th>Liu et al.</th>
-  </tr>
-
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Input</th>
+      <th>Input+<i>FAST</i></th>
+      <th>ASR+TTS</th>
+      <th>Ours<br>(w/o SPK)</th>
+      <th>Ours<br>(w/o <i>FAST</i>)</th>
+      <th class="bold-header">Ours (Full)</th>
+      <th>Oracle TTS</th>
+      <th>DiffDSR<sup>[1]</sup></th>
+      <th>RnV<sup>[2]</sup></th>
+      <th>Liu et al.<sup>[3]</sup></th>
+    </tr>
+  </thead>
+  <tbody>
   <tr>
     <td>
       發行利率也有較大幅度上升 <br>
@@ -296,24 +304,27 @@
     <td><audio controls src="./demo/26_sample3_Rnv.wav"></audio></td>
     <td><audio controls src="./demo/26_sample3_knn.wav"></audio></td>
   </tr>
+  </tbody>
   </table>
 
   <h2>Speaker 39 (Very low intelligibility)</h2>
   <table>
-  <tr>
-    <th>Method</th>
-    <th>Input</th>
-    <th>Input+<i>FAST</i></th>
-    <th>ASR+TTS</th>
-    <th>Ours<br>(w/o SPK)</th>
-    <th>Ours<br>(w/o <i>FAST</i>)</th>
-    <th class="bold-header">Ours (Full)</th>
-    <th>Oracle TTS</th>
-    <th>DiffDSR</th>
-    <th>RnV</th>
-    <th>Liu et al.</th>
-  </tr>
-
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Input</th>
+      <th>Input+<i>FAST</i></th>
+      <th>ASR+TTS</th>
+      <th>Ours<br>(w/o SPK)</th>
+      <th>Ours<br>(w/o <i>FAST</i>)</th>
+      <th class="bold-header">Ours (Full)</th>
+      <th>Oracle TTS</th>
+      <th>DiffDSR<sup>[1]</sup></th>
+      <th>RnV<sup>[2]</sup></th>
+      <th>Liu et al.<sup>[3]</sup></th>
+    </tr>
+  </thead>
+  <tbody>
   <tr>
     <td>
       近期銷售模式的 <br>
@@ -364,17 +375,17 @@
     <td><audio controls src="./demo/39_sample3_Rnv.wav"></audio></td>
     <td><audio controls src="./demo/39_sample3_knn.wav"></audio></td>
   </tr>
+  </tbody>
   </table>
 
-  <script>
-    var acc = document.getElementsByClassName("accordion");
-    for (var i = 0; i < acc.length; i++) {
-      acc[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        panel.style.display = panel.style.display === "block" ? "none" : "block";
-      });
-    }
-  </script>
+  <div class="references">
+    <h3>References</h3>
+    <ul>
+      <li>[1] X. Chen, D. Yang, W. Wu, M. Wu, J. Xu, X. Wu, Z. Wu, and H. Meng, “Diffdsr: Dysarthric speech reconstruction using latent diffusion model,” arXiv preprint arXiv:2506.00350, 2025.</li>
+      <li>[2] Karl El Hajal and Enno Hermann and Sevada Hovsepyan and Mathew Magimai Doss, “Unsupervised Rhythm and Voice Conversion to Improve ASR on Dysarthric Speech,” in Interspeech 2025, 2025, pp. 2760–2764.</li>
+      <li>[3] D. Liu, Y. Lin, H. Bu, and M. Li, “Two-stage and self-supervised voice conversion for zero-shot dysarthric speech reconstruction,” in 2024 International Conference on Asian Language Processing (IALP). IEEE, 2024, pp. 423–427.</li>
+    </ul>
+  </div>
+
 </body>
 </html>
