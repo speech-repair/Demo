@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Speech Repair Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+    h1, h2 { color: #2c3e50; }
+    .framework {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .framework img {
+      max-width: 80%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .accordion {
+      background-color: #f8f2fc;
+      color: #333;
+      cursor: pointer;
+      padding: 14px;
+      width: 100%;
+      text-align: left;
+      border: none;
+      outline: none;
+      transition: background-color 0.3s;
+      font-size: 16px;
+      margin-top: 10px;
+      border-radius: 6px;
+    }
+    .accordion:hover {
+      background-color: #ddd;
+    }
+    .panel {
+      padding: 0 18px;
+      display: none;
+      background-color: white;
+      overflow: hidden;
+      border-left: 2px solid #ccc;
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      display: block;
+      overflow-x: auto; /* 允許橫向捲動 */
+      white-space: nowrap; /* 防止標題換行導致版面亂掉 */
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+      min-width: 100px;
+    }
+    th { 
+      background-color: #f9f9f9; 
+      font-size: 14px;
+    }
+    /* 讓 Transcription 欄位固定或稍微寬一點 */
+    td:first-child, th:first-child {
+      position: sticky;
+      left: 0;
+      background-color: #fff;
+      z-index: 1;
+      min-width: 150px;
+      box-shadow: 2px 0 5px -2px rgba(0,0,0,0.1);
+    }
+    th:first-child {
+      background-color: #f9f9f9;
+    }
+    audio { width: 110px; } /* 因欄位眾多，縮小播放器 */
+    
+    /* 特定樣式 */
+    .bold-header { font-weight: bold; color: #000; }
+    .italic-text { font-style: italic; }
+  </style>
+</head>
+<body>
+  <h1>Formant-Guided Speech Repair for Enhanced Comprehension of Mandarin Dysarthric Speech Demo</h1>
+    <a class="code-link" href="https://github.com/speech-repair/FAST_code" target="_blank">
+      View the code on GitHub
+    </a>
+  
+  <div class="framework">
+    <h2>Framework</h2>
+    <img src="image/framework.jpg" alt="Speech Repair Framework">
+  </div>
+
+  <p>
+    We present speech repair results for dysarthric speakers.
+    The table below compares <b>Input</b>, <b>Input+<i>FAST</i></b>, <b>ASR+TTS</b>, Ablation studies (<b>w/o SPK</b>, <b>w/o <i>FAST</i></b>), <b>Our Proposed Full Model</b>, and Baselines (<b>DiffDSR</b>, <b>RnV</b>, <b>Liu et al.</b>).
+  </p>
+
+  <h2>Speaker 07 (High intelligibility)</h2>
+  <table>
+  <tr>
+    <th>Method</th>
+    <th>Input</th>
+    <th>Input+<i>FAST</i></th>
+    <th>ASR+TTS</th>
+    <th>Ours<br>(w/o SPK)</th>
+    <th>Ours<br>(w/o <i>FAST</i>)</th>
+    <th class="bold-header">Ours (Full)</th>
+    <th>Oracle TTS</th>
+    <th>DiffDSR</th>
+    <th>RnV</th>
+    <th>Liu et al.</th>
+  </tr>
+
+  <tr>
+    <td>
+      成功處置深航 <br>
+      <span style="color:gray; font-size:0.8em;">chéng gōng chǔ zhì shēn háng</span>
+    </td>
+    <td><audio controls src="./demo/7_sample1_source.wav"></audio></td>
+    <td><audio controls src="./demo/07_sample1_input+FAST.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample1_asr-tts.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample1_+fcsw.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample1_+spkft.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample1_our_proposed.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample1_puretts.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample1_diffdsr.wav"></audio></td>
+    <td><audio controls src="./demo/07_sample1_Rnv.wav"></audio></td>
+    <td><audio controls src="./demo/07_sample1_knn.wav"></audio></td>
+  </tr>
+
+  <tr>
+    <td>
+      首屈一指的超大企業 <br>
+      <span style="color:gray; font-size:0.8em;">shǒu qū yī zhǐ de chāo dà qǐ yè</span>
+    </td>
+    <td><audio controls src="./demo/7_sample2_source.wav"></audio></td>
+    <td><audio controls src="./demo/07_sample2_input+FAST.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample2_asr-tts.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample2_+fcsw.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample2_+spkft.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample2_our_proposed.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample2_puretts.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample2_diffdsr.wav"></audio></td>
+    <td><audio controls src="./demo/07_sample2_Rnv.wav"></audio></td>
+    <td><audio controls src="./demo/07_sample2_knn.wav"></audio></td>
+  </tr>
+
+  <tr>
+    <td>
+      身體素質指數偏低 <br>
+      <span style="color:gray; font-size:0.8em;">shēn tǐ sù zhì zhǐ shù piān dī</span>
+    </td>
+    <td><audio controls src="./demo/7_sample3_source.wav"></audio></td>
+    <td><audio controls src="./demo/07_sample3_input+FAST.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample3_asr-tts.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample3_+fcsw.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample3_+spkft.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample3_our_proposed.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample3_puretts.wav"></audio></td>
+    <td><audio controls src="./demo/7_sample3_diffdsr.wav"></audio></td>
+    <td><audio controls src="./demo/07_sample3_Rnv.wav"></audio></td>
+    <td><audio controls src="./demo/07_sample3_knn.wav"></audio></td>
+  </tr>
+  </table>
+
+  <h2>Speaker 04 (Moderate intelligibility)</h2>
+  <table>
+  <tr>
+    <th>Method</th>
+    <th>Input</th>
+    <th>Input+<i>FAST</i></th>
+    <th>ASR+TTS</th>
+    <th>Ours<br>(w/o SPK)</th>
+    <th>Ours<br>(w/o <i>FAST</i>)</th>
+    <th class="bold-header">Ours (Full)</th>
+    <th>Oracle TTS</th>
+    <th>DiffDSR</th>
+    <th>RnV</th>
+    <th>Liu et al.</th>
+  </tr>
+
+  <tr>
+    <td>
+      附加補貼 <br>
+      <span style="color:gray; font-size:0.8em;">fù jiā bǔ tiē</span>
+    </td>
+    <td><audio controls src="./demo/4_sample1_source.wav"></audio></td>
+    <td><audio controls src="./demo/04_sample1_input+FAST.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample1_asr-tts.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample1_+fcsw.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample1_+spkft.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample1_our_proposed.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample1_puretts.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample1_diffdsr.wav"></audio></td>
+    <td><audio controls src="./demo/04_sample1_Rnv.wav"></audio></td>
+    <td><audio controls src="./demo/04_sample1_knn.wav"></audio></td>
+  </tr>
+
+  <tr>
+    <td>
+      宜減不宜加 <br>
+      <span style="color:gray; font-size:0.8em;">yí jiǎn bù yí jiā</span>
+    </td>
+    <td><audio controls src="./demo/4_sample2_source.wav"></audio></td>
+    <td><audio controls src="./demo/04_sample2_input+FAST.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample2_asr-tts.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample2_+fcsw.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample2_+spkft.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample2_our_proposed.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample2_puretts.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample2_diffdsr.wav"></audio></td>
+    <td><audio controls src="./demo/04_sample2_Rnv.wav"></audio></td>
+    <td><audio controls src="./demo/04_sample2_knn.wav"></audio></td>
+  </tr>
+
+  <tr>
+    <td>
+      進行合理分攤 <br>
+      <span style="color:gray; font-size:0.8em;">jìn xíng hé lǐ fēn tān</span>
+    </td>
+    <td><audio controls src="./demo/4_sample3_source.wav"></audio></td>
+    <td><audio controls src="./demo/04_sample3_input+FAST.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample3_asr-tts.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample3_+fcsw.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample3_+spkft.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample3_our_proposed.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample3_puretts.wav"></audio></td>
+    <td><audio controls src="./demo/4_sample3_diffdsr.wav"></audio></td>
+    <td><audio controls src="./demo/04_sample3_Rnv.wav"></audio></td>
+    <td><audio controls src="./demo/04_sample3_knn.wav"></audio></td>
+  </tr>
+  </table>
+
+  <h2>Speaker 26 (Low intelligibility)</h2>
+  <table>
+  <tr>
+    <th>Method</th>
+    <th>Input</th>
+    <th>Input+<i>FAST</i></th>
+    <th>ASR+TTS</th>
+    <th>Ours<br>(w/o SPK)</th>
+    <th>Ours<br>(w/o <i>FAST</i>)</th>
+    <th class="bold-header">Ours (Full)</th>
+    <th>Oracle TTS</th>
+    <th>DiffDSR</th>
+    <th>RnV</th>
+    <th>Liu et al.</th>
+  </tr>
+
+  <tr>
+    <td>
+      發行利率也有較大幅度上升 <br>
+      <span style="color:gray; font-size:0.8em;">fā xíng lì lǜ yě yǒu jiào dà fú dù shàng shēng</span>
+    </td>
+    <td><audio controls src="./demo/26_sample1_source.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample1_input+FAST.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample1_asr-tts.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample1_+fcsw.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample1_+spkft.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample1_our_proposed.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample1_puretts.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample1_diffdsr.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample1_Rnv.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample1_knn.wav"></audio></td>
+  </tr>
+
+  <tr>
+    <td>
+      排位均均在二十位之內 <br>
+      <span style="color:gray; font-size:0.8em;">pái wèi jūn jūn zài èr shí wèi zhī nèi</span>
+    </td>
+    <td><audio controls src="./demo/26_sample2_source.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample2_input+FAST.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample2_asr-tts.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample2_+fcsw.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample2_+spkft.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample2_our_proposed.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample2_puretts.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample2_diffdsr.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample2_Rnv.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample2_knn.wav"></audio></td>
+  </tr>
+
+  <tr>
+    <td>
+      城投債券的發行規模 <br>
+      <span style="color:gray; font-size:0.8em;">chéng tóu zhài quàn de fā xíng guī mó</span>
+    </td>
+    <td><audio controls src="./demo/26_sample3_source.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample3_input+FAST.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample3_asr-tts.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample3_+fcsw.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample3_+spkft.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample3_our_proposed.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample3_puretts.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample3_diffdsr.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample3_Rnv.wav"></audio></td>
+    <td><audio controls src="./demo/26_sample3_knn.wav"></audio></td>
+  </tr>
+  </table>
+
+  <h2>Speaker 39 (Very low intelligibility)</h2>
+  <table>
+  <tr>
+    <th>Method</th>
+    <th>Input</th>
+    <th>Input+<i>FAST</i></th>
+    <th>ASR+TTS</th>
+    <th>Ours<br>(w/o SPK)</th>
+    <th>Ours<br>(w/o <i>FAST</i>)</th>
+    <th class="bold-header">Ours (Full)</th>
+    <th>Oracle TTS</th>
+    <th>DiffDSR</th>
+    <th>RnV</th>
+    <th>Liu et al.</th>
+  </tr>
+
+  <tr>
+    <td>
+      近期銷售模式的 <br>
+      <span style="color:gray; font-size:0.8em;">jìn qī xiāo shòu mó shì de</span>
+    </td>
+    <td><audio controls src="./demo/39_sample1_source.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample1_input+FAST.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample1_asr-tts.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample1_+fcsw.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample1_+spkft.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample1_our_proposed.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample1_puretts.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample1_diffdsr.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample1_Rnv.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample1_knn.wav"></audio></td>
+  </tr>
+
+  <tr>
+    <td>
+      未查出舊案 <br>
+      <span style="color:gray; font-size:0.8em;">wèi chá chū jiù àn</span>
+    </td>
+    <td><audio controls src="./demo/39_sample2_source.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample2_input+FAST.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample2_asr-tts.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample2_+fcsw.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample2_+spkft.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample2_our_proposed.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample2_puretts.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample2_diffdsr.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample2_Rnv.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample2_knn.wav"></audio></td>
+  </tr>
+
+  <tr>
+    <td>
+      兩地的生產總值 <br>
+      <span style="color:gray; font-size:0.8em;">liǎng dì de shēng chǎn zǒng zhí</span>
+    </td>
+    <td><audio controls src="./demo/39_sample3_source.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample3_input+FAST.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample3_asr-tts.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample3_+fcsw.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample3_+spkft.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample3_our_proposed.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample3_puretts.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample3_diffdsr.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample3_Rnv.wav"></audio></td>
+    <td><audio controls src="./demo/39_sample3_knn.wav"></audio></td>
+  </tr>
+  </table>
+
+  <script>
+    var acc = document.getElementsByClassName("accordion");
+    for (var i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        panel.style.display = panel.style.display === "block" ? "none" : "block";
+      });
+    }
+  </script>
+</body>
+</html>
